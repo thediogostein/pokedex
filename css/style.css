@@ -17,6 +17,14 @@ h3 {
   margin: 0;
 }
 
+p {
+  margin-top: 0;
+}
+
+img {
+  display: block;
+}
+
 /* || GENERAL STYLES */
 
 /* || UTILS */

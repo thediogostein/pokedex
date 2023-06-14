@@ -1,0 +1,38 @@
+.article {
+  display: flex;
+  flex-direction: column;
+}
+
+.col {
+}
+
+.col-img {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.col-img {
+  background-color: blueviolet;
+  padding: 2rem 1.5rem;
+}
+
+.col-info {
+  background-color: brown;
+  padding: 2rem 1.5rem;
+}
+
+@media (min-width: 600px) {
+  .article {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .col {
+    width: 50%;
+    min-height: 100vh;
+  }
+
+  .col-img {
+  }
+}
