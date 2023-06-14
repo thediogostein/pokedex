@@ -26,7 +26,27 @@ img {
 }
 
 /* || GENERAL STYLES */
+body {
+  font-family: 'Roboto Slab', serif;
+  color: fdfdfd;
+}
 
+a:visited {
+  color: black;
+}
+
+small {
+  font-size: 1rem;
+}
+
+small i {
+  font-size: 1.2rem;
+}
+
+small i:hover,
+small i:focus {
+  color: blue;
+}
 /* || UTILS */
 .wrapper {
   width: 90%;
@@ -38,12 +58,22 @@ img {
 .header {
   padding: 1rem 0;
   background: #2e2e2e;
+  color: white;
+}
+
+.header a {
+  color: white;
 }
 
 .header__logo {
+  margin-bottom: 0.5rem;
 }
 
 /* || MAIN */
+main {
+  padding-bottom: 4rem;
+}
+
 .main__header {
   padding: 2rem 0 0.75rem;
   text-align: center;
@@ -72,8 +102,15 @@ img {
 }
 .card__li {
   list-style: none;
-  background-color: blanchedalmond;
+  background-color: fff;
   border-radius: 16px;
+  box-shadow: 0px 10px 51px -5px rgba(183, 189, 193, 0.3);
+  transition: all 0.2s ease-in-out;
+}
+
+.card__li:hover,
+.card__li:focus {
+  transform: scale(1.03);
 }
 .card__a {
   padding: 1rem;
