@@ -14,7 +14,99 @@ body {
 h1,
 h2,
 h3 {
-  margin-top: 0;
+  margin: 0;
 }
 
 /* || GENERAL STYLES */
+
+/* || UTILS */
+.wrapper {
+  width: 90%;
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+/* || HEADER */
+.header {
+  padding: 1rem 0;
+  background: #2e2e2e;
+}
+
+.header__logo {
+}
+
+/* || MAIN */
+.main__header {
+  padding: 2rem 0 0.75rem;
+  text-align: center;
+}
+
+.main__title {
+  font-size: 2.1rem;
+}
+
+/* -- CARDS */
+.section-cards {
+}
+
+.pokemon-number {
+  font-size: 1.5rem;
+  margin: 0.75rem 0;
+  font-weight: 900;
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+}
+.card__li {
+  list-style: none;
+  background-color: blanchedalmond;
+  border-radius: 16px;
+}
+.card__a {
+  padding: 1rem;
+  display: block;
+  text-decoration: none;
+}
+.card__article {
+}
+.card__img {
+  display: block;
+  margin: 0 auto;
+}
+.card__header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.card__left {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: flex-end;
+}
+.card__title {
+}
+.card__number {
+}
+
+.card__right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.card__badge {
+  border-radius: 16px;
+  padding: 0.25rem 0.75rem;
+  background-color: rgb(173, 173, 173);
+  color: white;
+  display: inline-block;
+}
