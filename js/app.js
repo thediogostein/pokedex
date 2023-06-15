@@ -15,7 +15,7 @@ switch (global.currentPage) {
     console.log('Index');
     break;
   case 'pokemon.html':
-  case: '/pokemon.html':
+  case '/pokemon.html':
     console.log('Pokemon');
     break;
 }
