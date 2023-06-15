@@ -3,8 +3,12 @@
 // Criar função fetchAPI que aceita receber um endpoint
 // Criar uma função renderizar os cards
 // Criar um função para renderizar o pokemon na pagina de detalhes
+
+// add load spinner
+
 const global = {
   currentPage: window.location.pathname,
+  spinnerEl: document.querySelector('#spinner'),
 };
 
 async function fetchAPI(url) {
@@ -30,7 +34,67 @@ async function fetchAPI(url) {
 //   // console.log(pokemon);
 // }
 
-function createPokemonCard(pokemonObj) {
+// Displays details on pokemon.html
+async function displayPokemonDetails() {
+  global.spinnerEl.classList.add('show');
+
+  const pokemonId = window.location.search.split('=')[1];
+  const pokemon = await fetchAPI(
+    `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
+  );
+
+  const pokemonHtml = console.log(pokemon);
+
+  document.getElementById('pokemon-img').src =
+    pokemon.sprites.other['official-artwork'].front_default;
+  document.getElementById('pokemon-img').alt = pokemon.name;
+  document
+    .getElementById('pokemon-id')
+    .append(document.createTextNode(pokemon.id));
+  document
+    .getElementById('pokemon-name')
+    .append(
+      document.createTextNode(
+        pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
+      )
+    );
+  document
+    .getElementById('pokemon-height')
+    .append(document.createTextNode(`${pokemon.height / 10} m`));
+  document
+    .getElementById('pokemon-weight')
+    .append(
+      document.createTextNode(`${(pokemon.weight / 2.205).toFixed(2)} kg`)
+    );
+
+  document
+    .getElementById('hp')
+    .append(document.createTextNode(pokemon.stats[0].base_stat));
+
+  document
+    .getElementById('attack')
+    .append(document.createTextNode(pokemon.stats[1].base_stat));
+
+  document
+    .getElementById('defense')
+    .append(document.createTextNode(pokemon.stats[2].base_stat));
+
+  document
+    .getElementById('sp-attack')
+    .append(document.createTextNode(pokemon.stats[3].base_stat));
+
+  document
+    .getElementById('sp-defense')
+    .append(document.createTextNode(pokemon.stats[4].base_stat));
+
+  document
+    .getElementById('speed')
+    .append(document.createTextNode(pokemon.stats[5].base_stat));
+
+  global.spinnerEl.classList.remove('show');
+}
+
+function displayPokemonCard(pokemonObj) {
   const cardsContainer = document.querySelector('#cards-container');
 
   const pokemon = {
@@ -48,7 +112,7 @@ function createPokemonCard(pokemonObj) {
 
   li.innerHTML = `
     
-      <a href="pokemon.html" class="card__a">
+      <a href="pokemon.html?id=${pokemon.id}" class="card__a">
         <article class="card__article">
           <img
             src="${pokemon.picture}"
@@ -72,14 +136,16 @@ function createPokemonCard(pokemonObj) {
   cardsContainer.append(li);
 }
 
-async function getSinglePokemon(pokemonList) {
+async function getSinglePokemonFromList(pokemonList) {
+  global.spinnerEl.classList.add('show');
   for (pokemon of pokemonList) {
     const pokemonObj = await fetchAPI(pokemon.url);
 
     // const pokemon = await getSinglePokemonData(result.url);
     // console.log(pokemonObj);
-    createPokemonCard(pokemonObj);
+    displayPokemonCard(pokemonObj);
   }
+  global.spinnerEl.classList.remove('show');
 }
 
 async function getPokemonList() {
@@ -87,7 +153,7 @@ async function getPokemonList() {
 
   // console.log(results);
 
-  getSinglePokemon(results);
+  getSinglePokemonFromList(results);
 }
 
 function init() {
@@ -97,6 +163,7 @@ function init() {
       getPokemonList();
       break;
     case '/pokemon.html':
+      displayPokemonDetails();
       break;
   }
 }

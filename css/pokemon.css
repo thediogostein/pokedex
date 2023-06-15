@@ -73,6 +73,8 @@ article {
   background-color: aquamarine;
   padding: 1.5rem;
   border-radius: 50%;
+  width: 100%;
+  max-width: 280px;
 }
 
 .col-info {

@@ -11,6 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;600;900&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="css/spinner.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/pokemon.css" />
     <script
@@ -44,12 +45,12 @@
 
       <article class="article wrapper">
         <div class="col col-img">
-          <img src="imgs/image.png" alt="" class="pokemon-img" />
+          <img src="" alt="" class="pokemon-img" id="pokemon-img" />
         </div>
         <div class="col col-info">
           <div class="info__div info__header">
-            <span>#001</span>
-            <h1>Bubasaur</h1>
+            <span id="pokemon-id">#</span>
+            <h1 id="pokemon-name"></h1>
           </div>
           <div class="info__div info__badges">
             <span class="card__badge">Grass</span>
@@ -58,26 +59,28 @@
           <div class="info__div info_height-weight">
             <div class="height">
               <p class="height-legend">Height</p>
-              <p>0.5m</p>
+              <p id="pokemon-height"></p>
             </div>
             <div class="weigth">
               <p class="weight-legend">Weight</p>
-              <p>28kg</p>
+              <p id="pokemon-weight"></p>
             </div>
           </div>
           <div class="info__div info__stats">
             <p class="stats-title">Stats</p>
             <div class="chart">
-              <p>HP <span>045</span></p>
-              <p>Attack <span>049</span></p>
-              <p>Defense <span>045</span></p>
-              <p>Sp. attack <span>054</span></p>
-              <p>Sp. defense <span>060</span></p>
-              <p>Speed <span>040</span></p>
+              <p>HP <span id="hp"></span></p>
+              <p>Attack <span id="attack"></span></p>
+              <p>Defense <span id="defense"></span></p>
+              <p>Special attack <span id="sp-attack"></span></p>
+              <p>Special defense <span id="sp-defense"></span></p>
+              <p>Speed <span id="speed"></span></p>
             </div>
           </div>
         </div>
       </article>
     </main>
+
+    <div class="loading" id="spinner"></div>
   </body>
 </html>
