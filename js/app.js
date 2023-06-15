@@ -159,7 +159,7 @@ async function getPokemonList() {
 function init() {
   // Router to run functions on different pages
   switch (global.currentPage) {
-    case '/index.html':
+    case '/':
       getPokemonList();
       break;
     case '/pokemon.html':
