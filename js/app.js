@@ -10,10 +10,12 @@ const global = {
 
 // Router to run functions on different pages
 switch (global.currentPage) {
+  case 'index.html':
   case '/index.html':
     console.log('Index');
     break;
-  case '/pokemon.html':
+  case 'pokemon.html':
+  case: '/pokemon.html'
     console.log('Pokemon');
     break;
 }
