@@ -27,13 +27,6 @@ async function fetchAPI(url) {
   }
 }
 
-// https://pokeapi.co/api/v2/pokemon/1/
-
-// async function singlePokemon(endpoint) {
-//   const pokemon = await fetchAPI(endpoint);
-//   // console.log(pokemon);
-// }
-
 // Displays details on pokemon.html
 async function displayPokemonDetails() {
   global.spinnerEl.classList.add('show');
@@ -141,7 +134,6 @@ async function getSinglePokemonFromList(pokemonList) {
   for (pokemon of pokemonList) {
     const pokemonObj = await fetchAPI(pokemon.url);
 
-    // const pokemon = await getSinglePokemonData(result.url);
     // console.log(pokemonObj);
     displayPokemonCard(pokemonObj);
   }
@@ -160,6 +152,7 @@ function init() {
   // Router to run functions on different pages
   switch (global.currentPage) {
     case '/':
+    case '/index.html':
       getPokemonList();
       break;
     case '/pokemon.html':
