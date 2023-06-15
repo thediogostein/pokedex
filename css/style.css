@@ -23,6 +23,7 @@ p {
 
 img {
   display: block;
+  max-width: 100%;
 }
 
 /* || GENERAL STYLES */
@@ -123,6 +124,9 @@ main {
 .card__img {
   display: block;
   margin: 0 auto;
+  width: 150px;
+  background-color: aqua;
+  border-radius: 50%;
 }
 .card__header {
   display: flex;
