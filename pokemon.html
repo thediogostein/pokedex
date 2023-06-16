@@ -47,6 +47,7 @@
         <div class="col col-img">
           <img src="" alt="" class="pokemon-img" id="pokemon-img" />
         </div>
+
         <div class="col col-info">
           <div class="info__div info__header">
             <span id="pokemon-id">#</span>
@@ -68,13 +69,44 @@
           </div>
           <div class="info__div info__stats">
             <p class="stats-title">Stats</p>
-            <div class="chart">
-              <p>HP <span id="hp"></span></p>
-              <p>Attack <span id="attack"></span></p>
-              <p>Defense <span id="defense"></span></p>
-              <p>Special attack <span id="sp-attack"></span></p>
-              <p>Special defense <span id="sp-defense"></span></p>
-              <p>Speed <span id="speed"></span></p>
+
+            <div class="stats__row">
+              <p class="align-left">HP</p>
+              <div class="stats__container">
+                <div class="stats hp" id="hp"></div>
+              </div>
+            </div>
+
+            <div class="stats__row">
+              <p>Attack</p>
+              <div class="stats__container">
+                <div class="stats attack" id="attack"></div>
+              </div>
+            </div>
+            <div class="stats__row">
+              <p>Defense</p>
+              <div class="stats__container">
+                <div class="stats defense" id="defense"></div>
+              </div>
+            </div>
+            <div class="stats__row">
+              <p>Special Attack</p>
+              <div class="stats__container">
+                <div class="stats sp-attack" id="sp-attack"></div>
+              </div>
+            </div>
+            <div class="stats__row">
+              <p>Special Defense</p>
+              <div class="stats__container">
+                <div class="stats sp-defense" id="sp-defense"></div>
+              </div>
+            </div>
+
+            <div class="stats__row">
+              <p>Speed</p>
+              <div class="stats__container">
+                <div class="stats speed" id="speed"></div>
+              </div>
             </div>
           </div>
         </div>

@@ -29,6 +29,21 @@ async function fetchAPI(url) {
 
 // Displays details on pokemon.html
 async function displayPokemonDetails() {
+  const domElements = {
+    img: document.getElementById('pokemon-img'),
+    name: document.getElementById('pokemon-name'),
+    id: document.getElementById('pokemon-id'),
+    height: document.getElementById('pokemon-height'),
+    weight: document.getElementById('pokemon-weight'),
+    stats: {
+      hp: document.getElementById('hp'),
+      attack: document.getElementById('attack'),
+      defense: document.getElementById('defense'),
+      spAttack: document.getElementById('sp-attack'),
+      spDefense: document.getElementById('sp-defense'),
+      speed: document.getElementById('speed'),
+    },
+  };
   global.spinnerEl.classList.add('show');
 
   const pokemonId = window.location.search.split('=')[1];
@@ -37,52 +52,68 @@ async function displayPokemonDetails() {
   );
 
   const pokemonHtml = console.log(pokemon);
+  // img
+  domElements.img.src = pokemon.sprites.other['official-artwork'].front_default;
+  domElements.img.alt = pokemon.name;
 
-  document.getElementById('pokemon-img').src =
-    pokemon.sprites.other['official-artwork'].front_default;
-  document.getElementById('pokemon-img').alt = pokemon.name;
-  document
-    .getElementById('pokemon-id')
-    .append(document.createTextNode(pokemon.id));
-  document
-    .getElementById('pokemon-name')
-    .append(
-      document.createTextNode(
-        pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
-      )
-    );
-  document
-    .getElementById('pokemon-height')
-    .append(document.createTextNode(`${pokemon.height / 10} m`));
-  document
-    .getElementById('pokemon-weight')
-    .append(
-      document.createTextNode(`${(pokemon.weight / 2.205).toFixed(2)} kg`)
-    );
+  // id & name
+  domElements.id.append(document.createTextNode(pokemon.id));
+  domElements.name.append(
+    document.createTextNode(
+      pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
+    )
+  );
 
-  document
-    .getElementById('hp')
-    .append(document.createTextNode(pokemon.stats[0].base_stat));
+  // height & weight
+  domElements.height.append(
+    document.createTextNode(`${pokemon.height / 10} m`)
+  );
+  domElements.weight.append(
+    document.createTextNode(`${(pokemon.weight / 2.205).toFixed(2)} kg`)
+  );
 
-  document
-    .getElementById('attack')
-    .append(document.createTextNode(pokemon.stats[1].base_stat));
+  // chart
+  domElements.stats.hp.style.width = `${
+    (pokemon.stats[0].base_stat * 100) / 255
+  }%`;
+  domElements.stats.hp.append(
+    document.createTextNode(pokemon.stats[0].base_stat)
+  );
 
-  document
-    .getElementById('defense')
-    .append(document.createTextNode(pokemon.stats[2].base_stat));
+  domElements.stats.attack.style.width = `${
+    (pokemon.stats[1].base_stat * 100) / 255
+  }%`;
+  domElements.stats.attack.append(
+    document.createTextNode(pokemon.stats[1].base_stat)
+  );
 
-  document
-    .getElementById('sp-attack')
-    .append(document.createTextNode(pokemon.stats[3].base_stat));
+  domElements.stats.defense.style.width = `${
+    (pokemon.stats[2].base_stat * 200) / 255
+  }%`;
+  domElements.stats.defense.append(
+    document.createTextNode(pokemon.stats[2].base_stat)
+  );
 
-  document
-    .getElementById('sp-defense')
-    .append(document.createTextNode(pokemon.stats[4].base_stat));
+  domElements.stats.spAttack.style.width = `${
+    (pokemon.stats[3].base_stat * 200) / 255
+  }%`;
+  domElements.stats.spAttack.append(
+    document.createTextNode(pokemon.stats[3].base_stat)
+  );
 
-  document
-    .getElementById('speed')
-    .append(document.createTextNode(pokemon.stats[5].base_stat));
+  domElements.stats.spDefense.style.width = `${
+    (pokemon.stats[4].base_stat * 200) / 255
+  }%`;
+  domElements.stats.spDefense.append(
+    document.createTextNode(pokemon.stats[4].base_stat)
+  );
+
+  domElements.stats.speed.style.width = `${
+    (pokemon.stats[5].base_stat * 200) / 255
+  }%`;
+  domElements.stats.speed.append(
+    document.createTextNode(pokemon.stats[5].base_stat)
+  );
 
   global.spinnerEl.classList.remove('show');
 }
