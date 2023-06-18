@@ -132,7 +132,7 @@ function addPokemonToDOM(pokemon) {
   const li = document.createElement('li');
 
   li.innerHTML = `
-  <a href="pokemon.html" class="card__a">
+  <a href="pokemon.html?id=${pokemon.id}" class="card__a">
                 <article class="card__article">
                   <img
                     src="${pokemon.img}"

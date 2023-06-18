@@ -84,6 +84,42 @@ main {
   font-size: 2.1rem;
 }
 
+/* -- FORMS */
+.forms-container {
+  /* max-width: 600px; */
+}
+form {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+form button {
+  width: 40%;
+  padding: 0.5rem 1rem;
+}
+
+form input,
+form select {
+}
+
+.search-form,
+.types-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.search-form {
+  margin-bottom: 1rem;
+}
+
+input,
+select {
+  width: 100%;
+}
+
+@media (min-width: 630px) {
+}
+
 /* -- CARDS */
 .section-cards {
 }
