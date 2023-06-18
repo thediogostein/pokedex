@@ -255,6 +255,7 @@ async function fetchPokemons() {
     const response = await fetch('https://pokeapi.co/api/v2/pokemon');
 
     const { results } = await response.json();
+
     global.spinnerEl.classList.add('show');
 
     const responseList = await Promise.allSettled(
@@ -275,7 +276,104 @@ async function fetchPokemons() {
   }
 }
 
-// || --
+async function fetchPokemon(pokemon) {
+  try {
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
+
+    if (!res.ok) throw new Error(`Pokemon not found`);
+    global.spinnerEl.classList.add('show');
+
+    const data = await res.json();
+
+    pokemon = {
+      id: data.id,
+      name: data.name,
+      img: data.sprites.other['official-artwork'].front_default,
+      types: data.types,
+    };
+
+    addPokemonToDOM(pokemon);
+    global.spinnerEl.classList.remove('show');
+  } catch (error) {
+    document
+      .querySelector('#cards-container')
+      .append(document.createTextNode('Pokemon not found'));
+  }
+}
+
+function searchPokemon() {
+  const form = document.querySelector('#search-form');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    cleanDOM();
+
+    const searchInput = form.querySelector('#search-bar').value;
+
+    console.log(searchInput);
+
+    fetchPokemon(searchInput);
+    form.reset();
+  });
+}
+
+function cleanDOM() {
+  document.getElementById('cards-container').innerHTML = '';
+}
+
+async function fetchByType(type) {
+  try {
+    const res = await fetch(
+      `https://pokeapi.co/api/v2/type/${type}?limit=10&offset=0`
+    );
+
+    if (!res.ok) throw new Error('Error');
+
+    const { pokemon: results } = await res.json();
+
+    global.spinnerEl.classList.add('show');
+
+    const responseList = await Promise.allSettled(
+      results.map((item) => fetch(item.pokemon.url))
+    );
+
+    const responseListFulfilled = responseList.filter((item) => {
+      if (item.status === 'fulfilled') return item;
+    });
+    const resultsFulfilled = responseListFulfilled.map((item) => item.value);
+
+    const data = await Promise.all(resultsFulfilled.map((item) => item.json()));
+
+    document.getElementById('total').textContent = '';
+    document
+      .getElementById('total')
+      .append(document.createTextNode(`${data.length} pokémons`));
+
+    createPokemonObj(data);
+    global.spinnerEl.classList.remove('show');
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function displayByType() {
+  const form = document.querySelector('#types-form');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const type = form.querySelector('#types-dropdown').value;
+
+    cleanDOM();
+
+    if (type === 'all') {
+      fetchPokemons();
+    } else {
+      fetchByType(type);
+    }
+  });
+}
 
 function init() {
   // Router to run functions on different pages
@@ -283,6 +381,8 @@ function init() {
     case '/':
     case '/index.html':
       fetchPokemons();
+      searchPokemon();
+      displayByType();
       break;
     case '/pokemon.html':
       displayPokemonDetails();

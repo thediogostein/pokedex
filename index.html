@@ -43,13 +43,18 @@
           <h1 class="main__title">Pokedex</h1>
         </header>
         <section class="forms-container">
-          <form class="search-form">
-            <input type="search" placeholder="Search by name or id" />
-            <button>Search</button>
+          <form class="search-form" id="search-form">
+            <input
+              type="search"
+              placeholder="Search by name or id"
+              id="search-bar"
+              required
+            />
+            <button type="submit">Search</button>
           </form>
 
-          <form class="types-form">
-            <select name="" id="">
+          <form class="types-form" id="types-form">
+            <select name="" id="types-dropdown">
               <option value="all">All</option>
               <option value="normal">Normal</option>
               <option value="fighting">Fighting</option>
@@ -70,12 +75,12 @@
               <option value="dark">Dark</option>
               <option value="fairy">Fairy</option>
             </select>
-            <button>Display</button>
+            <button type="submit">Display</button>
           </form>
         </section>
 
         <section class="section-cards">
-          <p class="pokemon-number"><span>1281</span> Pokémons</p>
+          <p class="pokemon-number" id="total"></p>
           <ul class="cards-container" id="cards-container">
             <!-- List items -->
             <!-- <li class="card__li">
