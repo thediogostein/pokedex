@@ -93,6 +93,8 @@ article {
 
 .info__badges {
   margin-bottom: 1rem;
+  display: flex;
+  gap: 8px;
 }
 
 .info_height-weight {

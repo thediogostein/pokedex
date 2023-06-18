@@ -32,6 +32,7 @@ async function displayPokemonDetails() {
   const domElements = {
     img: document.getElementById('pokemon-img'),
     name: document.getElementById('pokemon-name'),
+    types: document.getElementById('types'),
     id: document.getElementById('pokemon-id'),
     height: document.getElementById('pokemon-height'),
     weight: document.getElementById('pokemon-weight'),
@@ -63,6 +64,14 @@ async function displayPokemonDetails() {
       pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
     )
   );
+
+  pokemon.types.map((type) => {
+    const span = document.createElement('span');
+    span.append(document.createTextNode(type.type.name));
+    span.classList.add('card__badge');
+    domElements.types.append(span);
+  });
+  console.log(pokemon.types);
 
   // height & weight
   domElements.height.append(
@@ -118,73 +127,84 @@ async function displayPokemonDetails() {
   global.spinnerEl.classList.remove('show');
 }
 
-function displayPokemonCard(pokemonObj) {
-  const cardsContainer = document.querySelector('#cards-container');
-
-  const pokemon = {
-    id: pokemonObj.id,
-    name: pokemonObj.name,
-    picture: pokemonObj.sprites.other['official-artwork'].front_default,
-    type: pokemonObj.types,
-  };
-
-  console.log(pokemonObj);
-  console.log(pokemon.type);
-
-  let li = document.createElement('li');
-  li.classList.add('card__li');
+function addPokemonToDOM(pokemon) {
+  console.log(pokemon);
+  const li = document.createElement('li');
 
   li.innerHTML = `
-    
-      <a href="pokemon.html?id=${pokemon.id}" class="card__a">
-        <article class="card__article">
-          <img
-            src="${pokemon.picture}"
-            alt="${pokemon.name}"
-            class="card__img"
-          />
-          <header class="card__header">
-            <div class="card__left">
-              <span class="card__number">#${pokemon.id}</span>
-              <h2 class="card__title">${pokemon.name}</h2>
-            </div>
-            <div class="card__right">
-              <span class="card__badge">Grass</span>
-              <span class="card__badge">Fire</span>
-            </div>
-          </header>
-        </article>
-      </a>
-    
+  <a href="pokemon.html" class="card__a">
+                <article class="card__article">
+                  <img
+                    src="${pokemon.img}"
+                    alt="pokemon"
+                    class="card__img"
+                  />
+                  <header class="card__header">
+                    <div class="card__left">
+                      <span class="card__number">#001</span>
+                      <h2 class="card__title">${pokemon.name}</h2>
+                    </div>
+                    <div class="card__right">
+                      <span class="card__badge">Grass</span>
+                      <span class="card__badge">Fire</span>
+                    </div>
+                  </header>
+                </article>
+    </a>
+              
   `;
-  cardsContainer.append(li);
+  document.querySelector('#cards-container').append(li);
 }
 
-async function getSinglePokemonFromList(pokemonList) {
-  global.spinnerEl.classList.add('show');
-  for (pokemon of pokemonList) {
-    const pokemonObj = await fetchAPI(pokemon.url);
+function createPokemonObj(pokemonsArray) {
+  const cardsContainer = document.querySelector('#cards-container');
 
-    // console.log(pokemonObj);
-    displayPokemonCard(pokemonObj);
+  const pokemon = {};
+
+  pokemonsArray.forEach((pokemon) => {
+    console.log(pokemon);
+    pokemon = {
+      id: pokemon.id,
+      name: pokemon.name,
+      img: pokemon.sprites.other['official-artwork'].front_default,
+      types: pokemon.types,
+    };
+
+    addPokemonToDOM(pokemon);
+  });
+}
+
+// || --
+async function fetchPokemons() {
+  try {
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon');
+    const { results } = await response.json();
+
+    const responseList = await Promise.allSettled(
+      results.map((pokemon) => fetch(pokemon.url))
+    );
+    const responseListFulfilled = responseList.filter((item) => {
+      if (item.status === 'fulfilled') return item;
+    });
+    const resultsFulfilled = responseListFulfilled.map((item) => item.value);
+    const data = await Promise.all(resultsFulfilled.map((item) => item.json()));
+
+    // console.log(data);
+
+    createPokemonObj(data);
+  } catch (error) {
+    //
   }
-  global.spinnerEl.classList.remove('show');
 }
 
-async function getPokemonList() {
-  const { results } = await fetchAPI('https://pokeapi.co/api/v2/pokemon');
-
-  // console.log(results);
-
-  getSinglePokemonFromList(results);
-}
+// || --
 
 function init() {
   // Router to run functions on different pages
   switch (global.currentPage) {
     case '/':
     case '/index.html':
-      getPokemonList();
+      fetchPokemons();
       break;
     case '/pokemon.html':
       displayPokemonDetails();
