@@ -70,7 +70,6 @@ article {
 /* || INFO */
 .pokemon-img {
   margin-inline: auto;
-  background-color: aquamarine;
   padding: 1.5rem;
   border-radius: 50%;
   width: 100%;
@@ -116,8 +115,9 @@ article {
 /* Stats chart */
 .stats__container {
   width: 100%;
-  /* max-width: 600px; */
   background-color: #ddd;
+  border-radius: 16px;
+  overflow: hidden;
 }
 
 .stats__row {
@@ -127,7 +127,7 @@ article {
 .stats {
   text-align: right;
   color: white;
-  background-color: brown;
+  /* background-color: rgb(31, 138, 84); */
   padding: 0.25rem;
   width: 0%;
 }

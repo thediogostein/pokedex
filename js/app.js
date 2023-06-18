@@ -1,11 +1,3 @@
-// Criar um router para descobrir qual a página atual - DONE
-// Rodar função na página certa
-// Criar função fetchAPI que aceita receber um endpoint
-// Criar uma função renderizar os cards
-// Criar um função para renderizar o pokemon na pagina de detalhes
-
-// add load spinner
-
 const global = {
   currentPage: window.location.pathname,
   spinnerEl: document.querySelector('#spinner'),
@@ -56,6 +48,7 @@ async function displayPokemonDetails() {
   // img
   domElements.img.src = pokemon.sprites.other['official-artwork'].front_default;
   domElements.img.alt = pokemon.name;
+  domElements.img.classList.add(pokemon.types[0].type.name);
 
   // id & name
   domElements.id.append(document.createTextNode(pokemon.id));
@@ -68,10 +61,10 @@ async function displayPokemonDetails() {
   pokemon.types.map((type) => {
     const span = document.createElement('span');
     span.append(document.createTextNode(type.type.name));
-    span.classList.add('card__badge');
+    span.classList.add('card__badge', `badge-${type.type.name}`);
     domElements.types.append(span);
   });
-  console.log(pokemon.types);
+  // console.log(pokemon.types);
 
   // height & weight
   domElements.height.append(
@@ -82,6 +75,11 @@ async function displayPokemonDetails() {
   );
 
   // chart
+
+  document.querySelectorAll('.stats').forEach((item) => {
+    item.classList.add(`badge-${pokemon.types[0].type.name}`);
+  });
+
   domElements.stats.hp.style.width = `${
     (pokemon.stats[0].base_stat * 100) / 255
   }%`;
@@ -128,32 +126,109 @@ async function displayPokemonDetails() {
 }
 
 function addPokemonToDOM(pokemon) {
-  console.log(pokemon);
-  const li = document.createElement('li');
+  // console.log(pokemon);
 
-  li.innerHTML = `
-  <a href="pokemon.html?id=${pokemon.id}" class="card__a">
-                <article class="card__article">
-                  <img
-                    src="${pokemon.img}"
-                    alt="pokemon"
-                    class="card__img"
-                  />
-                  <header class="card__header">
-                    <div class="card__left">
-                      <span class="card__number">#001</span>
-                      <h2 class="card__title">${pokemon.name}</h2>
-                    </div>
-                    <div class="card__right">
-                      <span class="card__badge">Grass</span>
-                      <span class="card__badge">Fire</span>
-                    </div>
-                  </header>
-                </article>
-    </a>
-              
-  `;
+  const li = document.createElement('li');
+  li.classList.add('card__li');
   document.querySelector('#cards-container').append(li);
+
+  const a = document.createElement('a');
+  a.classList.add('card__a');
+  a.href = `pokemon.html?id=${pokemon.id}`;
+  li.append(a);
+  const article = document.createElement('article');
+  article.classList.add('card__article');
+  a.append(article);
+  const img = document.createElement('img');
+  img.classList.add('card__img');
+  img.src = pokemon.img;
+  img.alt = pokemon.name;
+
+  switch (pokemon.types[0].type.name) {
+    case 'normal':
+      img.classList.add('normal');
+      break;
+    case 'fighting':
+      img.classList.add('fighting');
+      break;
+    case 'flying':
+      img.classList.add('flying');
+      break;
+    case 'poison':
+      img.classList.add('poison');
+      break;
+    case 'ground':
+      img.classList.add('ground');
+      break;
+    case 'rock':
+      img.classList.add('rock');
+      break;
+    case 'bug':
+      img.classList.add('bug');
+      break;
+    case 'ghost':
+      img.classList.add('ghost');
+      break;
+    case 'steel':
+      img.classList.add('steel');
+      break;
+    case 'fire':
+      img.classList.add('fire');
+      break;
+    case 'water':
+      img.classList.add('water');
+      break;
+    case 'grass':
+      img.classList.add('grass');
+      break;
+    case 'electric':
+      img.classList.add('electric');
+      break;
+    case 'psychic':
+      img.classList.add('psychic');
+      break;
+    case 'ice':
+      img.classList.add('ice');
+      break;
+    case 'dragon':
+      img.classList.add('dragon');
+      break;
+    case 'dark':
+      img.classList.add('dark');
+      break;
+    case 'fairy':
+      img.classList.add('fairy');
+      break;
+    default:
+      img.classList.add('normal');
+  }
+
+  article.append(img);
+
+  const header = document.createElement('header');
+  header.classList.add('card__header');
+  article.append(header);
+  const cardLeft = document.createElement('div');
+  cardLeft.classList.add('card__left');
+  header.append(cardLeft);
+  const id = document.createElement('span');
+  id.classList.add('card__number');
+  id.append(document.createTextNode(`#${pokemon.id}`));
+  const name = document.createElement('h2');
+  name.classList.add('card__title');
+  name.append(document.createTextNode(pokemon.name));
+  cardLeft.append(id, name);
+
+  const cardRight = document.createElement('div');
+  cardRight.classList.add('card__right');
+  cardRight.innerHTML = pokemon.types
+    .map(
+      (type) =>
+        `<span class='card__badge badge-${type.type.name}'>${type.type.name}</span>`
+    )
+    .join('');
+
+  header.append(cardRight);
 }
 
 function createPokemonObj(pokemonsArray) {
@@ -162,7 +237,7 @@ function createPokemonObj(pokemonsArray) {
   const pokemon = {};
 
   pokemonsArray.forEach((pokemon) => {
-    console.log(pokemon);
+    // console.log(pokemon);
     pokemon = {
       id: pokemon.id,
       name: pokemon.name,

@@ -32,7 +32,7 @@ body {
   color: fdfdfd;
 }
 
-a:visited {
+a {
   color: black;
 }
 
@@ -195,4 +195,117 @@ select {
   background-color: rgb(173, 173, 173);
   color: white;
   display: inline-block;
+}
+
+/* IMGS BG's */
+.normal {
+  background-color: rgba(141, 141, 141);
+}
+.fighting {
+  background-color: rgba(196, 77, 97);
+}
+.flying {
+  background-color: rgba(158, 180, 227);
+}
+.poison {
+  background-color: rgba(172, 106, 202);
+}
+.ground {
+  background-color: rgba(203, 119, 74);
+}
+.rock {
+  background-color: rgba(134, 203, 190);
+}
+.bug {
+  background-color: rgba(131, 158, 56);
+}
+.ghost {
+  background-color: rgba(97, 110, 183);
+}
+.steel {
+  background-color: rgba(101, 148, 161);
+}
+.fire {
+  background-color: #ffebca;
+}
+.water {
+  background-color: #dfecf5;
+}
+.grass {
+  background-color: #d6ebdc;
+}
+.electric {
+  background-color: rgba(207, 190, 93);
+}
+.psychic {
+  background-color: rgba(235, 140, 133);
+}
+.ice {
+  background-color: rgba(124, 197, 182);
+}
+.dragon {
+  background-color: rgba(70, 105, 153);
+}
+.dark {
+  background-color: rgba(61, 60, 63);
+}
+.fairy {
+  background-color: rgba(221, 138, 220);
+}
+
+/* BADGES */
+
+.badge-normal {
+  background-color: rgba(141, 141, 141);
+}
+.badge-fighting {
+  background-color: rgba(196, 77, 97);
+}
+.badge-flying {
+  background-color: rgb(105, 143, 226);
+}
+.badge-poison {
+  background-color: rgba(172, 106, 202);
+}
+.badge-ground {
+  background-color: rgba(203, 119, 74);
+}
+.badge-rock {
+  background-color: rgba(134, 203, 190);
+}
+.badge-bug {
+  background-color: rgba(131, 158, 56);
+}
+.badge-ghost {
+  background-color: rgba(97, 110, 183);
+}
+.badge-steel {
+  background-color: rgba(101, 148, 161);
+}
+.badge-fire {
+  background-color: #f7ab31;
+}
+.badge-water {
+  background-color: #32a5f7;
+}
+.badge-grass {
+  background-color: #71a37f;
+}
+.badge-electric {
+  background-color: rgba(207, 190, 93);
+}
+.badge-psychic {
+  background-color: rgba(235, 140, 133);
+}
+.badge-ice {
+  background-color: rgba(124, 197, 182);
+}
+.badge-dragon {
+  background-color: rgba(70, 105, 153);
+}
+.badge-dark {
+  background-color: rgba(61, 60, 63);
+}
+.badge-fairy {
+  background-color: rgba(221, 138, 220);
 }
