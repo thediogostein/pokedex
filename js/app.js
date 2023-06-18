@@ -253,7 +253,9 @@ function createPokemonObj(pokemonsArray) {
 async function fetchPokemons() {
   try {
     const response = await fetch('https://pokeapi.co/api/v2/pokemon');
+
     const { results } = await response.json();
+    global.spinnerEl.classList.add('show');
 
     const responseList = await Promise.allSettled(
       results.map((pokemon) => fetch(pokemon.url))
@@ -267,6 +269,7 @@ async function fetchPokemons() {
     // console.log(data);
 
     createPokemonObj(data);
+    global.spinnerEl.classList.remove('show');
   } catch (error) {
     //
   }

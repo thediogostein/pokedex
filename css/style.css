@@ -46,7 +46,7 @@ small i {
 
 small i:hover,
 small i:focus {
-  color: blue;
+  color: rgb(231, 228, 12);
 }
 /* || UTILS */
 .wrapper {
@@ -97,6 +97,16 @@ form {
 form button {
   width: 40%;
   padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: white;
+  background-color: #32a5f7;
+  border: 1px solid #32a5f7;
+}
+
+form button:hover,
+form button:focus {
+  background-color: #f7ab31;
+  border: 1px solid #f7ab31;
 }
 
 form input,
