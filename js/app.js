@@ -39,12 +39,11 @@ async function displayPokemonDetails() {
   };
   global.spinnerEl.classList.add('show');
 
-  const pokemonId = window.location.search.split('=')[1];
+  const pokemonId = window.location.search.split('id=')[1];
   const pokemon = await fetchAPI(
     `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
   );
 
-  const pokemonHtml = console.log(pokemon);
   // img
   domElements.img.src = pokemon.sprites.other['official-artwork'].front_default;
   domElements.img.alt = pokemon.name;
@@ -64,7 +63,6 @@ async function displayPokemonDetails() {
     span.classList.add('card__badge', `badge-${type.type.name}`);
     domElements.types.append(span);
   });
-  // console.log(pokemon.types);
 
   // height & weight
   domElements.height.append(
@@ -126,15 +124,15 @@ async function displayPokemonDetails() {
 }
 
 function addPokemonToDOM(pokemon) {
-  // console.log(pokemon);
-
   const li = document.createElement('li');
   li.classList.add('card__li');
+
   document.querySelector('#cards-container').append(li);
 
   const a = document.createElement('a');
   a.classList.add('card__a');
   a.href = `pokemon.html?id=${pokemon.id}`;
+
   li.append(a);
   const article = document.createElement('article');
   article.classList.add('card__article');
@@ -237,7 +235,6 @@ function createPokemonObj(pokemonsArray) {
   const pokemon = {};
 
   pokemonsArray.forEach((pokemon) => {
-    // console.log(pokemon);
     pokemon = {
       id: pokemon.id,
       name: pokemon.name,
@@ -254,7 +251,12 @@ async function fetchPokemons() {
   try {
     const response = await fetch('https://pokeapi.co/api/v2/pokemon');
 
-    const { results } = await response.json();
+    const { results, count } = await response.json();
+
+    document.getElementById('total').textContent = '';
+    document
+      .getElementById('total')
+      .append(document.createTextNode(`${count} pokémons`));
 
     global.spinnerEl.classList.add('show');
 
@@ -266,8 +268,6 @@ async function fetchPokemons() {
     });
     const resultsFulfilled = responseListFulfilled.map((item) => item.value);
     const data = await Promise.all(resultsFulfilled.map((item) => item.json()));
-
-    // console.log(data);
 
     createPokemonObj(data);
     global.spinnerEl.classList.remove('show');
@@ -311,8 +311,6 @@ function searchPokemon() {
 
     const searchInput = form.querySelector('#search-bar').value;
 
-    console.log(searchInput);
-
     fetchPokemon(searchInput);
     form.reset();
   });
@@ -331,8 +329,6 @@ async function fetchByType(type) {
     if (!res.ok) throw new Error('Error');
 
     const { pokemon: results } = await res.json();
-
-    global.spinnerEl.classList.add('show');
 
     const responseList = await Promise.allSettled(
       results.map((item) => fetch(item.pokemon.url))
@@ -362,6 +358,7 @@ function displayByType() {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    global.spinnerEl.classList.add('show');
 
     const type = form.querySelector('#types-dropdown').value;
 
